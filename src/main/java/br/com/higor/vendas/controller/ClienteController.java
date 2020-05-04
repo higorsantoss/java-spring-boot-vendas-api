@@ -26,12 +26,7 @@ public class ClienteController {
 
 	@Autowired
 	private ClientesRepository clienteRepository;
-	
-	/** SELECT
-	 * 
-	 * @return
-	 */
-	
+		
 	@GetMapping                                  
 	public ResponseEntity<List<Cliente>> obterTodosOsClientes(){
 		List<Cliente> cliente = clienteRepository.findAll();
@@ -39,11 +34,6 @@ public class ClienteController {
 		
 	}
 	
-	/** SELECT
-	 * 
-	 * @param id
-	 * @return
-	 */
 	
 	@GetMapping(value = "{id}")                            
 	public Cliente obterClientePorId(@PathVariable Integer id){
@@ -53,23 +43,12 @@ public class ClienteController {
 										);
 	}
 	
-	/** INSERT
-	 * 
-	 * @param cliente
-	 * @return
-	 */
 	
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED) // retorna o status que voce quer que exiba, tem todos os status do Http
 	public Cliente salvar(@RequestBody Cliente cliente){
 		return clienteRepository.save(cliente);
 	}
-	
-	/**  DELETE
-	 * 
-	 * @param id
-	 * @return
-	 */
 	
 	
 	@DeleteMapping(value = "{id}")            
@@ -84,14 +63,6 @@ public class ClienteController {
 	} 
 	
 	
-	/**  UPDATE
-	 * 
-	 * @param id
-	 * @param c
-	 * @return
-	 */
-	
-	
 	@PutMapping(value = "{id}")   
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public void atualizar(@PathVariable Integer id, @RequestBody Cliente c){
@@ -104,5 +75,4 @@ public class ClienteController {
 		 }).orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, " Cliente nao encontrado "));
 	
 	}
-	
 }

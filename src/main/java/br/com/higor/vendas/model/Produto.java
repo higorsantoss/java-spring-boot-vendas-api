@@ -25,7 +25,7 @@ public class Produto {
 	@Column(name = "descricao")
 	private String descricao;
 	
-	@Column(name = "preco")
+	@Column(name = "preco", precision = 4, scale = 2)
     private BigDecimal preco;
 
 	@JsonIgnore
