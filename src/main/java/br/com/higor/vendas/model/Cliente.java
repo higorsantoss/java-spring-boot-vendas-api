@@ -32,7 +32,10 @@ public class Cliente {
 	@Column(name = "nome")
 	private String nome;
 
-	@JsonIgnore // nao aparece na estrutura json 
+	@Column(name = "cpf", length = 11)
+	private String cpf;
+	
+	@JsonIgnore // annotation para nao aparecer na estrutura json 
 	@OneToMany( mappedBy = "cliente" , fetch = FetchType.LAZY)
 	private Set<Pedido> pedidos;
 }

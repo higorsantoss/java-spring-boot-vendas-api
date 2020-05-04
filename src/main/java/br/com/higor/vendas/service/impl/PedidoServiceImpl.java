@@ -2,6 +2,7 @@ package br.com.higor.vendas.service.impl;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.higor.vendas.dto.ItemPedidoDTO;
 import br.com.higor.vendas.dto.PedidoDTO;
+import br.com.higor.vendas.enums.StatusPedido;
 import br.com.higor.vendas.exception.RegraNegocioException;
 import br.com.higor.vendas.model.Cliente;
 import br.com.higor.vendas.model.ItemPedido;
@@ -49,6 +51,9 @@ public class PedidoServiceImpl  implements PedidoService{
 		pedido.setTotal(pedidoDTO.getTotal());
 		pedido.setDataPedido(LocalDate.now());
 		pedido.setCliente(cliente);
+		pedido.setStatus(StatusPedido.REALIZADO);
+		
+		
 		List<ItemPedido> itemsPedidos = converterItems(pedido, pedidoDTO.getItems());
 		pedidoRepository.save(pedido);
 		itemsPedidosRepository.saveAll(itemsPedidos);
@@ -74,5 +79,10 @@ public class PedidoServiceImpl  implements PedidoService{
 						itemPedido.setProduto(produto);
 						return itemPedido;
 					}).collect(Collectors.toList());
+	}
+
+	@Override
+	public Optional<Pedido> obterPedidoCompleto(Integer id) {
+		return pedidoRepository.findByIdFetchItemPedido(id);
 	}
 }
