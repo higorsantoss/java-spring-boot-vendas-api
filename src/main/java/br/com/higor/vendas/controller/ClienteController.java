@@ -3,6 +3,8 @@ package br.com.higor.vendas.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,7 +48,7 @@ public class ClienteController {
 	
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED) // retorna o status que voce quer que exiba, tem todos os status do Http
-	public Cliente salvar(@RequestBody Cliente cliente){
+	public Cliente salvar(@RequestBody @Valid Cliente cliente){
 		return clienteRepository.save(cliente);
 	}
 	
@@ -65,7 +67,7 @@ public class ClienteController {
 	
 	@PutMapping(value = "{id}")   
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	public void atualizar(@PathVariable Integer id, @RequestBody Cliente c){
+	public void atualizar(@PathVariable Integer id, @RequestBody @Valid Cliente c){
 		
 		clienteRepository.findById(id)
 		 .map(  x -> {

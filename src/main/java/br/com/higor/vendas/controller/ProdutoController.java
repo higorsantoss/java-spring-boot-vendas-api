@@ -2,6 +2,8 @@ package br.com.higor.vendas.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +38,7 @@ public class ProdutoController {
 	
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED) // retorna o status que voce quer que exiba, tem todos os status do Http
-	public Produto salvar(@RequestBody Produto produto){
+	public Produto salvar(@RequestBody @Valid Produto produto){
 		return produtoRepository.save(produto);
 	}
 	
@@ -53,7 +55,7 @@ public class ProdutoController {
 	
 	@PutMapping(value = "{id}")   
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	public void atualizar(@PathVariable Integer id, @RequestBody Produto p){
+	public void atualizar(@PathVariable Integer id, @RequestBody @Valid Produto p){
 		
 		produtoRepository.findById(id)
 		 .map(  x -> {
